@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Ibadah {
+public class TataIbadah {
     @Id
     private String id;
     private String namaIbadah; //minggu hari besar

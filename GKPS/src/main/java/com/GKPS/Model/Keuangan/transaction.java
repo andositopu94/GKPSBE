@@ -3,6 +3,7 @@ package com.GKPS.Model.Keuangan;
 import com.GKPS.Model.Enum.transactionCategory;
 import com.GKPS.Model.Enum.transactionType;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Document(collection = "transactions")
 public class transaction extends BaseEntity{
     @Id
+    @Indexed
     private String id;
 
     private transactionType type;
