@@ -9,5 +9,6 @@ public enum EwartaCategory {
     BAPTIS,
     SIDI,
     ACARA,
+    SERMON,
     LAINNYA
 }

@@ -15,7 +15,7 @@ public class Organization {
     private LocalDate endDate;
 
     private List<OrganizationMember> members;
-    private Boolean isActive=true;
+    private Boolean isActive;
 
     public String getId() {
         return id;

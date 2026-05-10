@@ -7,5 +7,11 @@ public enum transactionCategory {
     INTERNAL,
     USAHA,
     PENDETA,
+    MAJELIS,
+    PERSEPULUHAN,
+    PERSEMBAHAN,
+    PEMELIHARAAN,
+    PELAYANAN,
+    UMUM,
     LAINNYA
 }

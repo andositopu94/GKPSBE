@@ -13,18 +13,18 @@ public class majalahRohani {
     private String link;
     private String gambar;
     private String isi;
-    private String penulis;
-    private String kategori;
+    private String namaPenulis;
+    private boolean isApproved; // Menandakan apakah majalah rohani sudah disetujui atau belum
 
-    public majalahRohani(String id, String judul, LocalDate tanggal, String link, String gambar, String isi, String penulis, String kategori) {
+    public majalahRohani(String id, String judul, LocalDate tanggal, String link, String gambar, String isi, String namaPenulis, boolean isApproved) {
         this.id = id;
         this.judul = judul;
         this.tanggal = tanggal;
         this.link = link;
         this.gambar = gambar;
         this.isi = isi;
-        this.penulis = penulis;
-        this.kategori = kategori;
+        this.namaPenulis = namaPenulis;
+        this.isApproved = isApproved;
     }
 
     public String getId() {
@@ -75,19 +75,19 @@ public class majalahRohani {
         this.isi = isi;
     }
 
-    public String getPenulis() {
-        return penulis;
+    public String getNamaPenulis() {
+        return namaPenulis;
     }
 
-    public void setPenulis(String penulis) {
-        this.penulis = penulis;
+    public void setNamaPenulis(String namaPenulis) {
+        this.namaPenulis = namaPenulis;
     }
 
-    public String getKategori() {
-        return kategori;
+    public boolean isApproved() {
+        return isApproved;
     }
 
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
+    public void setApproved(boolean approved) {
+        isApproved = approved;
     }
 }
