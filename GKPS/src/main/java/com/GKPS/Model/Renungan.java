@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 
 @Document(collection = "renungan")
-public class renungan {
+public class Renungan {
     @Id
     private String id;
     private String judul;
@@ -15,7 +15,7 @@ public class renungan {
     private String penulis;
     private String link;
 
-    public renungan(String judul, LocalDate tanggal, String isi, String penulis, String link) {
+    public Renungan(String judul, LocalDate tanggal, String isi, String penulis, String link) {
         this.judul = judul;
         this.tanggal = tanggal;
         this.isi = isi;

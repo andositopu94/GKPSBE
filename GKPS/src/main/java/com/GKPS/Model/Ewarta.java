@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Document(collection = "ewarta")
-public class ewarta {
+public class Ewarta {
     @Id
     private String id;
     private String judul;

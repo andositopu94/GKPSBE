@@ -10,7 +10,7 @@ public class PetugasIbadah {
     private String id;
 
     @DBRef
-    private jadwalIbadah jadwalIbadah;
+    private JadwalIbadah jadwalIbadah;
     private String pengkhotbah;
     private String pemimpinPujian;
     private String pemusik;
@@ -29,11 +29,11 @@ public class PetugasIbadah {
         this.id = id;
     }
 
-    public com.GKPS.Model.jadwalIbadah getJadwalIbadah() {
+    public JadwalIbadah getJadwalIbadah() {
         return jadwalIbadah;
     }
 
-    public void setJadwalIbadah(com.GKPS.Model.jadwalIbadah jadwalIbadah) {
+    public void setJadwalIbadah(JadwalIbadah jadwalIbadah) {
         this.jadwalIbadah = jadwalIbadah;
     }
 

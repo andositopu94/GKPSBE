@@ -1,19 +1,35 @@
 package com.GKPS.Model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "jadwalIbadah")
-public class jadwalIbadah {
+public class JadwalIbadah {
+
+        @Id
+        private String id;
+
         private String nama;
         private String hari;
         private String jam;
         private String alamat;
 
-        public jadwalIbadah(String nama, String hari, String jam, String alamat) {
+        public JadwalIbadah() {
+        }
+
+        public JadwalIbadah(String nama, String hari, String jam, String alamat) {
             this.nama = nama;
             this.hari = hari;
             this.jam = jam;
             this.alamat = alamat;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
         }
 
         public String getNama() {

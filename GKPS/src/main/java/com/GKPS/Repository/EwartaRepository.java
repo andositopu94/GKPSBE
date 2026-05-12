@@ -1,7 +1,7 @@
 package com.GKPS.Repository;
 
 import com.GKPS.Model.Enum.EwartaCategory;
-import com.GKPS.Model.ewarta;
+import com.GKPS.Model.Ewarta;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface EwartaRepository extends MongoRepository<ewarta, String>{
-    List<ewarta>findByIsPublishedTrue();
-    List<ewarta>findByKategori(EwartaCategory kategori);
-    List<ewarta>findByIsPublishedTrueAndExpiredDateAfter(LocalDateTime expiredDate);
+public interface EwartaRepository extends MongoRepository<Ewarta, String>{
+    List<Ewarta>findByIsPublishedTrue();
+    List<Ewarta>findByKategori(EwartaCategory kategori);
+    List<Ewarta>findByIsPublishedTrueAndExpiredDateAfter(LocalDateTime expiredDate);
 }

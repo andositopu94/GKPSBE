@@ -4,13 +4,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "account")
-public class account extends BaseEntity{
+public class Account extends BaseEntity{
     @Id
     private String id;
     private String nama; //kas Gereja, seksi-seksi, dll
     private Double saldo;
 
-    public account() {
+    public Account() {
     }
 
     public String getId() {

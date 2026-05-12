@@ -1,11 +1,10 @@
 package com.GKPS.Model;
 
-import jakarta.annotation.Generated;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
 
-public class majalahRohani {
+public class MajalahRohani {
     @Id
     private String id;
     private String judul;
@@ -16,7 +15,7 @@ public class majalahRohani {
     private String namaPenulis;
     private boolean isApproved; // Menandakan apakah majalah rohani sudah disetujui atau belum
 
-    public majalahRohani(String id, String judul, LocalDate tanggal, String link, String gambar, String isi, String namaPenulis, boolean isApproved) {
+    public MajalahRohani(String id, String judul, LocalDate tanggal, String link, String gambar, String isi, String namaPenulis, boolean isApproved) {
         this.id = id;
         this.judul = judul;
         this.tanggal = tanggal;

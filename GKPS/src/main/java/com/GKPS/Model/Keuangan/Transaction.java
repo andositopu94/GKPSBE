@@ -1,7 +1,7 @@
 package com.GKPS.Model.Keuangan;
 
-import com.GKPS.Model.Enum.transactionCategory;
-import com.GKPS.Model.Enum.transactionType;
+import com.GKPS.Model.Enum.TransactionCategory;
+import com.GKPS.Model.Enum.TransactionType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,14 +9,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Document(collection = "transactions")
-public class transaction extends BaseEntity{
+public class Transaction extends BaseEntity{
     @Id
     @Indexed
     private String id;
 
-    private transactionType type;
+    private TransactionType type;
 
-    private transactionCategory kategori; //donasi, operasional, dll
+    private TransactionCategory kategori; //donasi, operasional, dll
     private Double amount;
 
     private String accountId; //uangMasuk dan uangKeluar
@@ -29,7 +29,7 @@ public class transaction extends BaseEntity{
     private Approval approvalStatus;
     private List<Attachment> attachments;
 
-    public transaction() {
+    public Transaction() {
     }
 
     public String getId() {
@@ -48,11 +48,11 @@ public class transaction extends BaseEntity{
         this.accountId = accountId;
     }
 
-    public transactionType getType() {
+    public TransactionType getType() {
         return type;
     }
 
-    public void setType(transactionType type) {
+    public void setType(TransactionType type) {
         this.type = type;
     }
 
@@ -80,11 +80,11 @@ public class transaction extends BaseEntity{
         this.toAccountId = toAccountId;
     }
 
-    public transactionCategory getKategori() {
+    public TransactionCategory getKategori() {
         return kategori;
     }
 
-    public void setKategori(transactionCategory kategori) {
+    public void setKategori(TransactionCategory kategori) {
         this.kategori = kategori;
     }
 

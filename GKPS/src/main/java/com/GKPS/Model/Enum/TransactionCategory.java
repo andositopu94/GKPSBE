@@ -1,6 +1,6 @@
 package com.GKPS.Model.Enum;
 
-public enum transactionCategory {
+public enum TransactionCategory {
     DONASI,
     PEMBANGUNAN,
     OPERASIONAL,

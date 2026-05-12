@@ -1,6 +1,6 @@
 package com.GKPS.Model.Enum;
 
-public enum transactionType {
+public enum TransactionType {
     Masuk,
     Keluar,
     Transfer
