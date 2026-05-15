@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface EwartaRepository extends MongoRepository<Ewarta, String>{
     List<Ewarta>findByIsPublishedTrue();
-    List<Ewarta>findByKategori(EwartaCategory kategori);
+    List<Ewarta>findByCategory(EwartaCategory category);
     List<Ewarta>findByIsPublishedTrueAndExpiredDateAfter(LocalDateTime expiredDate);
 }

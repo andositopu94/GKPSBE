@@ -42,7 +42,7 @@ public class EwartaService {
         dto.setPengumumanList(pengumumanList);
 
         //ambil jadwal konseling yang tersedia
-        List<JadwalKonseling> jadwalKonselingList = JadwalKonselingRepository.findByTanggalAfter(LocalDateTime.now());
+        List<JadwalKonseling> jadwalKonselingList = JadwalKonselingRepository.findByTanggalWaktuAfter(LocalDateTime.now());
         dto.setJadwalKonselingList(jadwalKonselingList);
 
         List<jadwalIbadahWithPetugas> jadwalIbadahWithPetugasList = new ArrayList<>();

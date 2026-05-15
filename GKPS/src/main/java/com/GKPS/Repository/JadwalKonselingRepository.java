@@ -11,4 +11,6 @@ import java.util.List;
 public interface JadwalKonselingRepository extends MongoRepository<JadwalKonseling, String> {
     List<JadwalKonseling> findByTanggalAfter(LocalDateTime tanggalWaktu);
     List<JadwalKonseling> findByTersediaTrue();
+
+    List<JadwalKonseling> findByTanggalWaktuAfter(LocalDateTime tanggalWaktu);
 }

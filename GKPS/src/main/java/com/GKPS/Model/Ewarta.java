@@ -19,7 +19,7 @@ public class Ewarta {
 
     private LocalDateTime tanggalPublikasi;
     private LocalDateTime tanggalAcara;
-    private LocalDateTime expireDate;
+    private LocalDateTime expiredDate;
 
     private Boolean isPublished=false;
 
@@ -75,12 +75,12 @@ public class Ewarta {
         this.tanggalAcara = tanggalAcara;
     }
 
-    public LocalDateTime getExpireDate() {
-        return expireDate;
+    public LocalDateTime getExpiredDate() {
+        return expiredDate;
     }
 
-    public void setExpireDate(LocalDateTime expireDate) {
-        this.expireDate = expireDate;
+    public void setExpiredDate(LocalDateTime expiredDate) {
+        this.expiredDate = expiredDate;
     }
 
     public Boolean getPublished() {
