@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface JadwalKonselingRepository extends MongoRepository<JadwalKonseling, String> {
-    List<JadwalKonseling> findByTanggalAfter(LocalDateTime tanggalWaktu);
+//    List<JadwalKonseling> findByTanggalAfter(LocalDateTime tanggalWaktu);
     List<JadwalKonseling> findByTersediaTrue();
 
     List<JadwalKonseling> findByTanggalWaktuAfter(LocalDateTime tanggalWaktu);

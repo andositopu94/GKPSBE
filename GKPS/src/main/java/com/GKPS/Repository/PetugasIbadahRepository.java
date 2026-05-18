@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface PetugasIbadahRepository extends MongoRepository<PetugasIbadah, String> {
-    List<PetugasIbadah> findByTanggalAfter(String tanggal);
+//    List<PetugasIbadah> findByTanggalAfter(String tanggal);
     PetugasIbadah findByJadwalIbadahId(String jadwalIbadahId);
+
 }
