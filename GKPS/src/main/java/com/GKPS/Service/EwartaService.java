@@ -47,6 +47,7 @@ public class EwartaService {
 
         List<jadwalIbadahWithPetugas> jadwalIbadahWithPetugasList = new ArrayList<>();
         List<JadwalIbadah> allJadwalIbadah = JadwalIbadahRepository.findAll();
+        dto.setJadwalIbadahList(allJadwalIbadah);
 
         for (JadwalIbadah jadwalIbadah : allJadwalIbadah) {
             PetugasIbadah petugas = PetugasIbadahRepository.findByJadwalIbadahId(jadwalIbadah.getId());
