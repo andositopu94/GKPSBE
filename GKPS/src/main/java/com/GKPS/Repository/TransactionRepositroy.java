@@ -24,5 +24,6 @@ public interface TransactionRepositroy extends MongoRepository<Transaction, Stri
     List<Transaction>findByType(TransactionType type);
     List<Transaction>findByAccountId(String accountId);
     List<Transaction>findByKategori(TransactionCategory kategori);
+    List<Transaction> findByTypeAndCreatedAtBetween(TransactionType type, LocalDateTime startDate, LocalDateTime endDate);
 }
 

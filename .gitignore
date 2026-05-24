@@ -1,6 +1,4 @@
-### AL ###
-#Template for AL projects for Dynamics 365 Business Central
-#launch.json folder
+
 .vscode/
 #Cache folder
 .alcache/
@@ -21,3 +19,42 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+
++++ .gitignore (修改后)
+```
+# Java/Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Test reports
+**/surefire-reports/
+```

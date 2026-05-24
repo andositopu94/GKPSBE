@@ -1,9 +1,12 @@
 package com.GKPS.Model;
 
+import com.GKPS.Model.Keuangan.Attachment;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
+@Document(collection = "majalahRohani")
 public class MajalahRohani {
     @Id
     private String id;
@@ -14,6 +17,9 @@ public class MajalahRohani {
     private String isi;
     private String namaPenulis;
     private boolean isApproved; // Menandakan apakah majalah rohani sudah disetujui atau belum
+
+        public MajalahRohani() {
+        }
 
     public MajalahRohani(String id, String judul, LocalDate tanggal, String link, String gambar, String isi, String namaPenulis, boolean isApproved) {
         this.id = id;

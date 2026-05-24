@@ -2,10 +2,12 @@ package com.GKPS.Model;
 
 import com.GKPS.Model.Keuangan.Attachment;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Document(collection = "tataIbadah")
 public class TataIbadah {
     @Id
     private String id;
@@ -18,6 +20,10 @@ public class TataIbadah {
 
     private List<IbadahItem> items;
     private List<Attachment>attachments;
+
+    public TataIbadah(){
+
+    }
 
     public String getId() {
         return id;

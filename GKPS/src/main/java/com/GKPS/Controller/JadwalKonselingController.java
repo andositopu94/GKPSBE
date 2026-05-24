@@ -35,7 +35,7 @@ public class JadwalKonselingController {
                 .orElse(ResponseEntity.notFound().build());
         }
 
-        @PostMapping("/{id}")
+        @PostMapping
         public ResponseEntity<JadwalKonseling> create(@RequestBody JadwalKonseling jadwalKonseling) {
             return ResponseEntity.ok(jadwalKonselingService.save(jadwalKonseling));
         }

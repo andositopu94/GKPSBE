@@ -15,12 +15,22 @@ public class Renungan {
     private String penulis;
     private String link;
 
+    public Renungan() {
+    }
     public Renungan(String judul, LocalDate tanggal, String isi, String penulis, String link) {
         this.judul = judul;
         this.tanggal = tanggal;
         this.isi = isi;
         this.penulis = penulis;
         this.link = link;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getJudul() {

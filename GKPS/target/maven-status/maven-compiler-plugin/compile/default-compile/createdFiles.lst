@@ -1,1 +1,15 @@
+--- GKPS/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 com\GKPS\GkpsApplication.class
+
++++ GKPS/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+com/GKPS/Service/OrganizationService.class
+com/GKPS/Repository/RenunganRepository.class
+com/GKPS/Service/RenunganService.class
+com/GKPS/Repository/MajalahRohaniRepository.class
+com/GKPS/Repository/TataIbadahRepository.class
+com/GKPS/Service/TataIbadahService.class
+com/GKPS/DTO/ItemKeuanganDto.class
+com/GKPS/Service/MajalahRohaniService.class
+com/GKPS/Controller/KeuanganController.class
+com/GKPS/Service/KeuanganService.class
+com/GKPS/DTO/KeuanganSummaryDto.class

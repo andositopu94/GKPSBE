@@ -1,1 +1,5 @@
+--- GKPS/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
 D:\New folder\GKPS\src\test\java\com\GKPS\GkpsApplicationTests.java
+
++++ GKPS/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+/workspace/GKPS/src/test/java/com/GKPS/GkpsApplicationTests.java
