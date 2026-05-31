@@ -46,7 +46,7 @@ GET /api/keuangan/uang-masuk?startDate=2026-05-01&endDate=2026-05-31
         "amount": 2000000,
         "deskripsi": ""
       }
-      
+      // ... other categories with 0 amount if no transaction
     ],
     "total": 3500000
   }
@@ -99,7 +99,7 @@ GET /api/keuangan/uang-keluar?startDate=2026-05-01&endDate=2026-05-31
         "amount": 1000000,
         "deskripsi": "Listrik dan air"
       }
-      
+      // ... other categories with 0 amount if no transaction
     ],
     "total": 6000000
   }
@@ -142,14 +142,14 @@ GET /api/keuangan/summary?startDate=2026-05-01&endDate=2026-05-31
   "uangMasuk": [
     {
       "tanggal": "2026-05-20",
-      "items": [],
+      "items": [...],
       "total": 3500000
     }
   ],
   "uangKeluar": [
     {
       "tanggal": "2026-05-20",
-      "items": [],
+      "items": [...],
       "total": 6000000
     }
   ],
@@ -167,8 +167,8 @@ When creating transactions, use the following structure:
 
 ```json
 {
-  "type": "Masuk",
-  "kategori": "PERSEMBAHAN", 
+  "type": "Masuk", // or "Keluar"
+  "kategori": "PERSEMBAHAN", // from TransactionCategory enum
   "amount": 1000000,
   "deskripsi": "Persembahan ibadah minggu",
   "accountId": "account-id-here"

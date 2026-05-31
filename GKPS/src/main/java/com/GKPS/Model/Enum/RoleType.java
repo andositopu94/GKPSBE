@@ -5,6 +5,7 @@ public enum RoleType {
     MAJELIS,
     SINTUA,
     SYAMAS,
+    JEMAAT,
 
     KETUA_SEKSI,
     SEKRETARIS_SEKSI,
