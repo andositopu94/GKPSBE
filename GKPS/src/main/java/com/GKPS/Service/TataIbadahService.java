@@ -30,22 +30,19 @@ public class TataIbadahService {
         return tataIbadahRepository.save(tataIbadah);
     }
 
-    public TataIbadah updateTataIbadah(String id, TataIbadah tataIbadah) {
-//        Optional<TataIbadah> existingTataIbadah = tataIbadahRepository.findById(id);
-//        if (existingTataIbadah.isPresent()) {
-//            TataIbadah updatedTataIbadah = existingTataIbadah.get();
-//            updatedTataIbadah.setNamaIbadah(tataIbadah.getNamaIbadah());
-//            updatedTataIbadah.setTanggal(tataIbadah.getTanggal());
-//            updatedTataIbadah.setDeskripsi(tataIbadah.getDeskripsi());
-//            return tataIbadahRepository.save(updatedTataIbadah);
-//        } else {
-//            throw new RuntimeException("Tata Ibadah not found with id: " + id);
-//        }
+    public Optional<TataIbadah> updateTataIbadah(String id, TataIbadah tataIbadah) {
+    if (!tataIbadahRepository.existsById(id)) {
+        return Optional.empty();
+    }
         tataIbadah.setId(id);
-        return tataIbadahRepository.save(tataIbadah);
+        return Optional.of(tataIbadahRepository.save(tataIbadah));
     }
 
-    public void deleteTataIbadah(String id) {
+    public boolean deleteTataIbadah(String id) {
+        if (!tataIbadahRepository.existsById(id)) {
+            return false;
+        }
         tataIbadahRepository.deleteById(id);
+        return true;
     }
 }

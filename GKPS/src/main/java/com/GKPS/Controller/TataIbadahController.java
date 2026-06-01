@@ -22,7 +22,8 @@ public class TataIbadahController {
     @GetMapping("/{id}")
     public ResponseEntity<TataIbadah> getById(@PathVariable String id){
         return tataIbadahService.getTataIbadahById(id)
-                .map(ResponseEntity::ok)
+//                .map(ResponseEntity::ok)
+                .map(foundTataIbadah -> ResponseEntity.ok(foundTataIbadah))
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -34,7 +35,7 @@ public class TataIbadahController {
     @PutMapping("/{id}")
     public ResponseEntity<TataIbadah> update(@PathVariable String id, @RequestBody TataIbadah tataIbadah){
         return tataIbadahService.updateTataIbadah(id, tataIbadah)
-                .map(ResponseEntity::ok)
+                .map(updatedTataIbadah -> ResponseEntity.ok(updatedTataIbadah))
                 .orElse(ResponseEntity.notFound().build());
     }
 
