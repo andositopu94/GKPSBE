@@ -1,5 +1,6 @@
-package com.GKPS.Config;
+package com.GKPS.Service;
 
+import com.GKPS.Model.CustomUserDetails;
 import com.GKPS.Model.User;
 import com.GKPS.Repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

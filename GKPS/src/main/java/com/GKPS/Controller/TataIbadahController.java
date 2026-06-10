@@ -4,6 +4,7 @@ import com.GKPS.Model.TataIbadah;
 import com.GKPS.Service.TataIbadahService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +29,13 @@ public class TataIbadahController {
     }
 
     @PostMapping
+    @PreAuthorize("hashAnyRole('PENDETA', 'ADMIN', 'MAJELIS', 'SINTUA')")
     public ResponseEntity<TataIbadah> create(@RequestBody TataIbadah tataIbadah){
         return ResponseEntity.ok(tataIbadahService.createTataIbadah(tataIbadah));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hashAnyRole('PENDETA', 'ADMIN', 'MAJELIS', 'SINTUA')")
     public ResponseEntity<TataIbadah> update(@PathVariable String id, @RequestBody TataIbadah tataIbadah){
         return tataIbadahService.updateTataIbadah(id, tataIbadah)
                 .map(updatedTataIbadah -> ResponseEntity.ok(updatedTataIbadah))
@@ -40,6 +43,7 @@ public class TataIbadahController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hashAnyRole('PENDETA', 'ADMIN', 'MAJELIS', 'SINTUA')")
     public ResponseEntity<Void> delete(@PathVariable String id){
         return tataIbadahService.deleteTataIbadah(id)
                 ? ResponseEntity.noContent().build()

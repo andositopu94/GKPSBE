@@ -1,0 +1,12 @@
+package com.GKPS.Model.Enum;
+
+public enum OfferingType {
+    PERSEMBAHAN,
+    PERSEMBAHAN_MINGGUAN,
+    PERSEMBAHAN_BULANAN,
+    PERSEMBAHAN_KHUSUS,
+    PERPULUHAN,
+    SYUKURAN,
+    PEMBANGUNAN,
+    LAINNYA
+}

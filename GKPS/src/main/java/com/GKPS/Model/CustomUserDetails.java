@@ -1,4 +1,4 @@
-package com.GKPS.Config;
+package com.GKPS.Model;
 
 import com.GKPS.Model.Enum.RoleType;
 import com.GKPS.Model.User;

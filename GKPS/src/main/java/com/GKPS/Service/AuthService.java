@@ -1,8 +1,7 @@
 package com.GKPS.Service;
 
-import com.GKPS.Config.CustomUserDetails;
+import com.GKPS.Model.CustomUserDetails;
 import com.GKPS.Config.JwtService;
-import com.GKPS.Config.SecurityConfig;
 import com.GKPS.DTO.AuthResponse;
 import com.GKPS.DTO.LoginRequest;
 import com.GKPS.DTO.RegisterRequest;
@@ -73,6 +72,12 @@ public class AuthService {
         String refreshToken = jwtService.generateRefreshToken(userDetails);
 
         return buildAuthResponse(savedUser, jwtToken, refreshToken);
+    }
+
+    public Optional<AuthResponse> getCurrentUser(String username) {
+        return userRepository.findByUsername(username)
+                .map(user -> buildAuthResponse(user, null, null));
+
     }
 
     public AuthResponse login(LoginRequest request) {

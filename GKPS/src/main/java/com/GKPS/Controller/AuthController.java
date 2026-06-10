@@ -57,12 +57,15 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<AuthResponse> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails != null) {
+        if (userDetails == null) {
 
             return ResponseEntity.status(401).build();
         }
+
         logger.info("Get current user request received for user: {}", userDetails.getUsername());
-        return ResponseEntity.ok().build();
+        return authService.getCurrentUser(userDetails.getUsername())
+                .map(currentUser -> ResponseEntity.ok(currentUser))
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }
