@@ -28,26 +28,7 @@ public class InfoGerejaService {
     public Optional<InfoGereja> update(String id, InfoGereja payload){
         return infoGerejaRepository.findById(id).map(existingInfoGereja -> {
             payload.setId(existingInfoGereja.getId());
-//            existingInfoGereja.setNamaGereja(payload.getNamaGereja());
-//            existingInfoGereja.setAlamat(payload.getAlamat());
-//            existingInfoGereja.setKelurahan(payload.getKelurahan());
-//            existingInfoGereja.setKecamatan(payload.getKecamatan());
-//            existingInfoGereja.setKota(payload.getKota());
-//            existingInfoGereja.setProvinsi(payload.getProvinsi());
-//            existingInfoGereja.setKodePos(payload.getKodePos());
-//            existingInfoGereja.setNoTelepon(payload.getNoTelepon());
-//            existingInfoGereja.setEmail(payload.getEmail());
-//            existingInfoGereja.setWebsite(payload.getWebsite());
-//            existingInfoGereja.setNamaPendeta(payload.getNamaPendeta());
-//            existingInfoGereja.setNoHpPendeta(payload.getNoHpPendeta());
-//            existingInfoGereja.setJamOperasional(payload.getJamOperasional());
-//            existingInfoGereja.setDeskripsi(payload.getDeskripsi());
-//            existingInfoGereja.setLatitude(payload.getLatitude());
-//            existingInfoGereja.setLongitude(payload.getLongitude());
-//            existingInfoGereja.setLogoUrl(payload.getLogoUrl());
-//            existingInfoGereja.setFotoGereja(payload.getFotoGereja());
 
-//            return infoGerejaRepository.save(existingInfoGereja);
             return infoGerejaRepository.save(payload);
         });
     }

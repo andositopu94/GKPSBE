@@ -10,9 +10,11 @@ public class Family {
     @Id
     private String id;
     private String nomorKeluarga;
-    private String namaKepalaKeluarga;
+    private String kepalaKeluargaId; // Reference to Person ID of the head of the family
     private String sektor;
     private List<String> anggotaKeluarga; // List of Person IDs
+
+    private Boolean active=true;
 
     public String getId() {
         return id;
@@ -30,12 +32,12 @@ public class Family {
         this.nomorKeluarga = nomorKeluarga;
     }
 
-    public String getNamaKepalaKeluarga() {
-        return namaKepalaKeluarga;
+    public String getKepalaKeluargaId() {
+        return kepalaKeluargaId;
     }
 
-    public void setNamaKepalaKeluarga(String namaKepalaKeluarga) {
-        this.namaKepalaKeluarga = namaKepalaKeluarga;
+    public void setKepalaKeluargaId(String kepalaKeluargaId) {
+        this.kepalaKeluargaId = kepalaKeluargaId;
     }
 
     public String getSektor() {
@@ -52,5 +54,13 @@ public class Family {
 
     public void setAnggotaKeluarga(List<String> anggotaKeluarga) {
         this.anggotaKeluarga = anggotaKeluarga;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

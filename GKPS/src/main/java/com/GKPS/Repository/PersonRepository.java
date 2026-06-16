@@ -10,5 +10,8 @@ import java.util.Optional;
 @Repository
 public interface PersonRepository extends MongoRepository<Person, String> {
     Optional<Person> findByName(String name);
-    List<Person>findAllByOrderByNameAsc();
+    List<Person> findAllByOrderByNameAsc();
+    Optional<Person> findByNik(String nik);
+    List<Person> findBySektor(String sektor);
+    List<Person> findByActiveTrue();
 }
