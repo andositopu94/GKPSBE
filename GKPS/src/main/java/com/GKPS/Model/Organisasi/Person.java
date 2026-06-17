@@ -17,6 +17,7 @@ public class Person {
     private String alamat;
     private String sektor;
     private String noHp;
+    private String email;
     private Boolean baptis;
     private Boolean sidi;
     private String statusPernikahan;
@@ -86,6 +87,13 @@ public class Person {
         this.noHp = noHp;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public Boolean getBaptis() {
         return baptis;
     }

@@ -32,7 +32,7 @@ public class FamilyService {
     }
 
     public List<FamilyResponseDto> findAll(){
-        return familyRepository.findAll().stream().map(this::toResponse).collect(Collectors.toList());
+        return familyRepository.findByActiveTrue().stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     public FamilyResponseDto findById(String id){
@@ -40,8 +40,26 @@ public class FamilyService {
         return toResponse(family);
     }
 
-    public void delete(String id) {
-        familyRepository.deleteById(id);
+    public FamilyResponseDto update(String id, FamilyRequestDto familyRequestDto) {
+        Family family = familyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Family dengan ID " + id + " tidak ditemukan"));
+        if (!personRepository.existsById(familyRequestDto.getKepalaKeluargaId())) {
+            throw new IllegalArgumentException("Kepala keluarga dengan ID " + familyRequestDto.getKepalaKeluargaId() + " tidak ditemukan");
+        }
+        family.setNomorKeluarga(familyRequestDto.getNomorKeluarga());
+        family.setKepalaKeluargaId(familyRequestDto.getKepalaKeluargaId());
+        family.setSektor(familyRequestDto.getSektor());
+        family.setAnggotaKeluarga(familyRequestDto.getAnggotaKeluarga());
+        Family updatedFamily = familyRepository.save(family);
+        return toResponse(updatedFamily);
+    }
+
+//    public void delete(String id) {
+//        familyRepository.deleteById(id);
+//    }
+    public void deactive(String id) {
+        Family family = familyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Family dengan ID " + id + " tidak ditemukan"));
+        family.setActive(false);
+        familyRepository.save(family);
     }
 
     private FamilyResponseDto toResponse(Family family) {

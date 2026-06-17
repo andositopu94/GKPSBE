@@ -10,4 +10,5 @@ public interface FamilyRepository extends MongoRepository<Family,String> {
     List<Family> findBySektor(String sektor);
     List<Family> findByKepalaKeluargaId(String kepalaKeluargaId);
     Optional<Family> findByNomorKeluarga(String nomorKeluarga);
+    List<Family> findByActiveTrue();
 }

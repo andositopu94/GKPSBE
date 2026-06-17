@@ -14,4 +14,5 @@ public interface PersonRepository extends MongoRepository<Person, String> {
     Optional<Person> findByNik(String nik);
     List<Person> findBySektor(String sektor);
     List<Person> findByActiveTrue();
+    Boolean existsByNik(String nik);
 }

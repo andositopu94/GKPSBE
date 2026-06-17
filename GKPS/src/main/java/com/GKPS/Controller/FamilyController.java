@@ -30,8 +30,17 @@ public class FamilyController {
         return familyService.findById(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
-        familyService.delete(id);
+//    @DeleteMapping("/{id}")
+//    public void delete(@PathVariable String id) {
+//        familyService.delete(id);
+//    }
+    @PatchMapping("/{id}/deactive")
+    public void deactive(@PathVariable String id) {
+        familyService.deactive(id);
+    }
+
+    @PutMapping("/{id}")
+    public FamilyResponseDto updateFamily(@PathVariable String id, @RequestBody FamilyRequestDto familyRequestDto) {
+        return familyService.update(id, familyRequestDto);
     }
 }
