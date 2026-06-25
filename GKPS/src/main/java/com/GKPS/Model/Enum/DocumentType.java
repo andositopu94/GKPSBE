@@ -1,0 +1,14 @@
+package com.GKPS.Model.Enum;
+
+public enum DocumentType {
+    SURAT_BAPTIS,
+    SURAT_SIDI,
+    SURAT_NIKAH,
+    SURAT_PENGANTAR,
+    SURAT_PINDAH_JEMAAT,
+    SURAT_KEMATIAN,
+    SURAT_KELAHIRAN,
+    SURAT_REKOMENDASI_GEREJA,
+    LAINNYA
+
+}
