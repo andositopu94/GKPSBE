@@ -1,6 +1,6 @@
 package com.GKPS.Service;
 
-import com.GKPS.DTO.DashboardResponse;
+import com.GKPS.DTO.Response.DashboardResponse;
 import com.GKPS.Repository.FamilyRepository;
 import com.GKPS.Repository.OrganizationRepository;
 import com.GKPS.Repository.PersonRepository;

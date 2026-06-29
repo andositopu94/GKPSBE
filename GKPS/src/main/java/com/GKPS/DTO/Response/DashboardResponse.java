@@ -1,4 +1,4 @@
-package com.GKPS.DTO;
+package com.GKPS.DTO.Response;
 
 import lombok.Data;
 

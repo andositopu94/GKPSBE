@@ -1,4 +1,4 @@
-package com.GKPS.DTO;
+package com.GKPS.DTO.Request;
 
 import jakarta.validation.constraints.NotBlank;
 

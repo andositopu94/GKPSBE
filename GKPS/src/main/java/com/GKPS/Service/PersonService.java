@@ -1,7 +1,7 @@
 package com.GKPS.Service;
 
-import com.GKPS.DTO.PersonRequestDTO;
-import com.GKPS.DTO.PersonResponseDTO;
+import com.GKPS.DTO.Request.PersonRequestDTO;
+import com.GKPS.DTO.Response.PersonResponseDTO;
 import com.GKPS.Model.Organisasi.Person;
 import com.GKPS.Repository.PersonRepository;
 import lombok.RequiredArgsConstructor;

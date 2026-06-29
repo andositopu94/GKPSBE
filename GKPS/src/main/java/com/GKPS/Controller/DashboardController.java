@@ -1,6 +1,6 @@
 package com.GKPS.Controller;
 
-import com.GKPS.DTO.DashboardResponse;
+import com.GKPS.DTO.Response.DashboardResponse;
 import com.GKPS.Service.DashboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

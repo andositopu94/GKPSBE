@@ -1,7 +1,7 @@
 package com.GKPS.Controller;
 
-import com.GKPS.DTO.PersonRequestDTO;
-import com.GKPS.DTO.PersonResponseDTO;
+import com.GKPS.DTO.Request.PersonRequestDTO;
+import com.GKPS.DTO.Response.PersonResponseDTO;
 import com.GKPS.Service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

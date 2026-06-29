@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface DocumentReferenceRepository extends MongoRepository<DocumentReference, String> {
     List<DocumentReference> findByPersonId(String personId);
-    List<DocumentReference> findByReferenceTypeAndReferenceID(String referenceType, String referenceID);
+    List<DocumentReference> findByReferenceTypeAndReferenceID(String referenceType, String referenceId);
     List<DocumentReference> findBySubmittedBy(String subbmitedBy);
     List<DocumentReference> findByStatus(String status);
     List<DocumentReference> findByReviewedBy(String reviewedBy);

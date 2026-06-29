@@ -2,9 +2,9 @@ package com.GKPS.Service;
 
 import com.GKPS.Model.CustomUserDetails;
 import com.GKPS.Config.JwtService;
-import com.GKPS.DTO.AuthResponse;
-import com.GKPS.DTO.LoginRequest;
-import com.GKPS.DTO.RegisterRequest;
+import com.GKPS.DTO.Response.AuthResponse;
+import com.GKPS.DTO.Request.LoginRequest;
+import com.GKPS.DTO.Request.RegisterRequest;
 import com.GKPS.Model.Enum.RoleType;
 import com.GKPS.Model.User;
 import com.GKPS.Repository.UserRepository;

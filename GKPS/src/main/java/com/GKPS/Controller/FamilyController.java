@@ -1,7 +1,7 @@
 package com.GKPS.Controller;
 
-import com.GKPS.DTO.FamilyRequestDto;
-import com.GKPS.DTO.FamilyResponseDto;
+import com.GKPS.DTO.Request.FamilyRequestDto;
+import com.GKPS.DTO.Response.FamilyResponseDto;
 import com.GKPS.Model.Organisasi.Family;
 import com.GKPS.Service.FamilyService;
 import lombok.RequiredArgsConstructor;

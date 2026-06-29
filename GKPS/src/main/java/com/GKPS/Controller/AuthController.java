@@ -1,9 +1,9 @@
 package com.GKPS.Controller;
 
-import com.GKPS.DTO.AuthResponse;
-import com.GKPS.DTO.LoginRequest;
-import com.GKPS.DTO.RefreshTokenRequest;
-import com.GKPS.DTO.RegisterRequest;
+import com.GKPS.DTO.Response.AuthResponse;
+import com.GKPS.DTO.Request.LoginRequest;
+import com.GKPS.DTO.Request.RefreshTokenRequest;
+import com.GKPS.DTO.Request.RegisterRequest;
 import com.GKPS.Service.AuthService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
