@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface DocumentReferenceRepository extends MongoRepository<DocumentReference, String> {
     List<DocumentReference> findByPersonId(String personId);
-    List<DocumentReference> findByReferenceTypeAndReferenceID(String referenceType, String referenceId);
-    List<DocumentReference> findBySubmittedBy(String subbmitedBy);
+    List<DocumentReference> findByReferenceTypeAndReferenceId(String referenceType, String referenceId);
+    List<DocumentReference> findBySubmittedBy(String submittedBy);
     List<DocumentReference> findByStatus(String status);
     List<DocumentReference> findByReviewedBy(String reviewedBy);
     List<DocumentReference> findByisActive();

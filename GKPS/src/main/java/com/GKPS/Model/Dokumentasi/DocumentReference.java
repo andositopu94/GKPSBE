@@ -15,12 +15,12 @@ public class DocumentReference {
     private String referenceType; //Jenis referensi (misalnya: "Baptism", "Sidi", "Marriage", dll.)
     private String referenceId; //ID dari dokumen yang direferensikan (misalnya: ID Baptism, ID Sidi, dll.)
     private String personId; //ID orang yang terkait dengan referensi dokumen
-    private String subbmitedBy; //ID orang yang mengajukan referensi dokumen
+    private String submittedBy; //ID orang yang mengajukan referensi dokumen
     private String status; //Status referensi dokumen (misalnya: "PENDING", "APPROVED", "REJECTED")
     private String reviewedBy; //ID orang yang meninjau referensi dokumen
 
     @CreatedDate
-    private LocalDateTime subbmitDate; //Tanggal dan waktu ketika referensi dokumen diajukan
+    private LocalDateTime submitDate; //Tanggal dan waktu ketika referensi dokumen diajukan
     private LocalDateTime reviewDate; //Tanggal dan waktu ketika referensi dokumen ditinjau
     private String rejectReason; //Alasan penolakan jika referensi dokumen ditolak
     private List<String> documentIds; //Daftar ID dokumen yang terkait dengan referensi dokumen
@@ -67,12 +67,12 @@ public class DocumentReference {
         this.personId = personId;
     }
 
-    public String getSubbmitedBy() {
-        return subbmitedBy;
+    public String getSubmittedBy() {
+        return submittedBy;
     }
 
-    public void setSubbmitedBy(String subbmitedBy) {
-        this.subbmitedBy = subbmitedBy;
+    public void setSubmittedBy(String submittedBy) {
+        this.submittedBy = submittedBy;
     }
 
     public String getStatus() {
@@ -91,12 +91,12 @@ public class DocumentReference {
         this.reviewedBy = reviewedBy;
     }
 
-    public LocalDateTime getSubbmitDate() {
-        return subbmitDate;
+    public LocalDateTime getSubmitDate() {
+        return submitDate;
     }
 
-    public void setSubbmitDate(LocalDateTime subbmitDate) {
-        this.subbmitDate = subbmitDate;
+    public void setSubmitDate(LocalDateTime submitDate) {
+        this.submitDate = submitDate;
     }
 
     public LocalDateTime getReviewDate() {

@@ -14,14 +14,14 @@ public class DocumentReferenceService {
     private final DocumentReferenceRepository documentReferenceRepository;
 
     // Submit a document reference for approval
-    public DocumentReference submitForApproval(String personId, String referenceType, String referenceID, String subbmitedBy, List<String> documentIds) {
+    public DocumentReference submitForApproval(String personId, String referenceType, String referenceId, String submittedBy, List<String> documentIds) {
         DocumentReference documentReference = new DocumentReference();
         documentReference.setPersonId(personId);
         documentReference.setReferenceType(referenceType);
-        documentReference.setReferenceId(referenceID);
-        documentReference.setSubbmitedBy(subbmitedBy);
+        documentReference.setReferenceId(referenceId);
+        documentReference.setSubmittedBy(submittedBy);
         documentReference.setStatus("Pending");
-        documentReference.setSubbmitDate(LocalDateTime.now());
+        documentReference.setSubmitDate(LocalDateTime.now());
         documentReference.setActive(true);
         return documentReferenceRepository.save(documentReference);
     }
@@ -58,13 +58,13 @@ public class DocumentReferenceService {
     }
 
     // Get all document references for a specific reference type and reference ID
-    public List<DocumentReference> findByReferenceTypeAndReferenceID(String referenceType, String referenceID) {
-        return documentReferenceRepository.findByReferenceTypeAndReferenceID(referenceType, referenceID);
+    public List<DocumentReference> findByReferenceTypeAndReferenceId(String referenceType, String referenceId) {
+        return documentReferenceRepository.findByReferenceTypeAndReferenceId(referenceType, referenceId);
     }
 
     // Get all document references submitted by a specific user
-    public List<DocumentReference> findBySubmittedBy(String subbmitedBy) {
-        return documentReferenceRepository.findBySubmittedBy(subbmitedBy);
+    public List<DocumentReference> findBySubmittedBy(String submittedBy) {
+        return documentReferenceRepository.findBySubmittedBy(submittedBy);
     }
 
     // Get all document references by reviewed by a specific user

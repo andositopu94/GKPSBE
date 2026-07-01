@@ -17,10 +17,10 @@ public class DocumentReferenceController {
     @PostMapping("/submit")
     public ResponseEntity<DocumentReference> submitForApproval(@RequestParam String personId,
                                                                 @RequestParam String referenceType,
-                                                                @RequestParam String referenceID,
+                                                                @RequestParam String referenceId,
                                                                 @RequestParam (required = false)String submittedBy,
                                                                 @RequestParam List<String> documentIds) {
-        DocumentReference documentReference = documentReferenceService.submitForApproval(personId, referenceType, referenceID, submittedBy, documentIds);
+        DocumentReference documentReference = documentReferenceService.submitForApproval(personId, referenceType, referenceId, submittedBy, documentIds);
         return ResponseEntity.ok(documentReference);
     }
 
@@ -48,8 +48,8 @@ public class DocumentReferenceController {
 
     @GetMapping("/reference")
     public List<DocumentReference> findByReferenceTypeAndReferenceId(@RequestParam String referenceType,
-                                                                      @RequestParam String referenceID) {
-        return documentReferenceService.findByReferenceTypeAndReferenceID(referenceType, referenceID);
+                                                                      @RequestParam String referenceId) {
+        return documentReferenceService.findByReferenceTypeAndReferenceId(referenceType, referenceId);
     }
 
     @GetMapping("/pending")
