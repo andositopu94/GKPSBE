@@ -57,10 +57,12 @@ public class EnhancedSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/ibadah/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/renungan/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/majalah/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/dashboard").permitAll()
 
                         // Protected endpoints - requires authentication
                         .requestMatchers("/api/keuangan/**").authenticated()
                         .requestMatchers("/api/admin/**").authenticated()
+                        .requestMatchers("/api/reports/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/**").authenticated()
