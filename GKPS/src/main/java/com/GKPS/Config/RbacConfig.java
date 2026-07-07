@@ -1,5 +1,7 @@
 package com.GKPS.Config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
@@ -9,7 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
 @Configuration
-@EnableMethodSecurity(prePostEnabled = false)
+@EnableMethodSecurity
 public class RbacConfig {
     //Hierarki:
     //- PENDETA >MAJELIS>SINTUA>JEMAAT
@@ -62,7 +64,8 @@ public class RbacConfig {
      * Expression Handler untuk Web Security
      */
     @Bean
-    public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler(RoleHierarchy roleHierarchy) {
+    @ConditionalOnMissingBean(name = "webSecurityExpressionHandler")
+    public DefaultWebSecurityExpressionHandler customWebSecurityExpressionHandler(RoleHierarchy roleHierarchy) {
         DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
         handler.setRoleHierarchy(roleHierarchy);
         return handler;

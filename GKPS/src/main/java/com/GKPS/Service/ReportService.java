@@ -4,6 +4,9 @@ import com.GKPS.DTO.Request.ReportRequestDto;
 import com.GKPS.DTO.Response.StatisticReportDto;
 import com.GKPS.Model.Enum.RoleType;
 import com.GKPS.Model.Keuangan.Transaction;
+import com.GKPS.Model.Organisasi.Organization;
+import com.GKPS.Model.Organisasi.OrganizationMember;
+import com.GKPS.Model.Organisasi.Person;
 import com.GKPS.Repository.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -48,7 +52,7 @@ public class ReportService {
             default -> throw new IllegalArgumentException("Invalid report type: " + reportRequestDto.getReportType());
         };
 
-        report.getGeneratedAt(new StatisticReportDto.GeneratedAt(today, LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")), currentUser));
+        report.setGeneratedAt(new StatisticReportDto.GeneratedAt(today, LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")), currentUser));
         return report;
     }
 
@@ -89,9 +93,9 @@ public class ReportService {
     }
 
     //laporan statistik keuangan
-    private StatisticReportDto generateFinancialReport(ReportRequestDto reportRequestDto, String generatedBy) {
-        LocalDate startDate = reportRequestDto.getStartDate();
-        LocalDate endDate = reportRequestDto.getEndDate();
+    public StatisticReportDto generateFinancialReport(ReportRequestDto reportRequestDto, String generatedBy) {
+        LocalDateTime startDate = startOfDay(reportRequestDto.getStartDate());
+        LocalDateTime endDate = endOfDay(reportRequestDto.getEndDate());
         Map<String, Object> summary = new LinkedHashMap<>();
 
         long totalTransactions = transactionRepositroy.count();
@@ -126,8 +130,8 @@ public class ReportService {
 
     //laporan statistik keuangan per seksi
     private StatisticReportDto generateFinancialReportBySection(ReportRequestDto reportRequestDto, String generatedBy) {
-        LocalDate startDate = reportRequestDto.getStartDate();
-        LocalDate endDate = reportRequestDto.getEndDate();
+        LocalDateTime startDate = startOfDay(reportRequestDto.getStartDate());
+        LocalDateTime endDate = endOfDay(reportRequestDto.getEndDate());
         Map<String, Object> summary = new LinkedHashMap<>();
 
         long totalTransactions = transactionRepositroy.count();
@@ -151,7 +155,7 @@ public class ReportService {
         List<Map<String, Object>> financialDetails = getKeuanganDetailsBySection(reportRequestDto, startDate, endDate);
 
         StatisticReportDto report = new StatisticReportDto();
-        report.setReportType("KEUNGAN_SEKSI");
+        report.setReportType("KEUANGAN_SEKSI");
         report.setStartDate(reportRequestDto.getStartDate());
         report.setEndDate(reportRequestDto.getEndDate());
         report.setSummary(summary);
@@ -204,43 +208,80 @@ public class ReportService {
 
     private Map<String, Long> getGenderStatistics() {
         // Implementasi sesuai dengan field di Person model
-        Map<String, Long> stats = new HashMap<>();
-        stats.put("Laki-laki", 0L);
-        stats.put("Perempuan", 0L);
+//        Map<String, Long> stats = new HashMap<>();
+//        stats.put("Laki-laki", 0L);
+//        stats.put("Perempuan", 0L);
         // TODO: Query actual data from repository
-        return stats;
+//        return stats;
+        return activePeople().stream()
+                .collect(Collectors.groupingBy(p -> normalizeBlank(p.getJenisKelamin(), "Tidak Diketahui"), LinkedHashMap::new, Collectors.counting()));
     }
 
     private Map<String, Long> getBaptismStatistics() {
-        Map<String, Long> stats = new HashMap<>();
-        stats.put("Sudah Baptis", 0L);
-        stats.put("Belum Baptis", 0L);
-        stats.put("Sidi", 0L);
+//        Map<String, Long> stats = new HashMap<>();
+//        stats.put("Sudah Baptis", 0L);
+//        stats.put("Belum Baptis", 0L);
+//        stats.put("Sidi", 0L);
         // TODO: Query actual data from repository
+        Map<String, Long> stats = new LinkedHashMap<>();
+        stats.put("Sudah Baptis", activePeople().stream().filter(p -> Boolean.TRUE.equals(p.getBaptis())).count());
+        stats.put("Belum Baptis", activePeople().stream().filter(p -> !Boolean.TRUE.equals(p.getBaptis())).count());
         return stats;
     }
 
-    private Map<String, Long> getSectorStatistics() {
-        Map<String, Long> stats = new HashMap<>();
-        // TODO: Query sectors from Person/Family repository
+    private Map<String, Long> getSidiStatistics() {
+        Map<String, Long> stats = new LinkedHashMap<>();
+        stats.put("Sudah Sidi", activePeople().stream().filter(p -> Boolean.TRUE.equals(p.getSidi())).count());
+        stats.put("Belum Sidi", activePeople().stream().filter(p -> !Boolean.TRUE.equals(p.getSidi())).count());
         return stats;
+    }
+
+    private Map<String, Long> getPengurusStatistics() {
+        return organizationRepository.findByIsActiveTrue().stream()
+                .flatMap(org -> safeMembers(org).stream())
+                .collect(Collectors.groupingBy(member -> member.getRole() != null ? member.getRole().name() : "LAINNYA", LinkedHashMap::new, Collectors.counting()));
+    }
+
+    private Map<String, Long> getSektorStatistics() {
+        return activePeople().stream()
+                .collect(Collectors.groupingBy(p -> normalizeBlank(p.getSektor(), "Tanpa Sektor"), LinkedHashMap::new, Collectors.counting()));
     }
 
     private Map<String, Long> getAgeGroupStatistics() {
-        Map<String, Long> stats = new HashMap<>();
+        Map<String, Long> stats = new LinkedHashMap<>();
         stats.put("0-12 (Anak)", 0L);
         stats.put("13-17 (Remaja)", 0L);
         stats.put("18-35 (Pemuda)", 0L);
         stats.put("36-59 (Dewasa)", 0L);
         stats.put("60+ (Lansia)", 0L);
-        // TODO: Calculate from birth dates in Person repository
+
+        LocalDate today = LocalDate.now();
+        for (Person person : activePeople()) {
+            if (person.getTanggalLahir() == null) continue;
+            int age = Period.between(person.getTanggalLahir(), today).getYears();
+            if (age <= 12) stats.computeIfPresent("0-12 (Anak)", (k, v) -> v + 1);
+            else if (age <= 17) stats.computeIfPresent("13-17 (Remaja)", (k, v) -> v + 1);
+            else if (age <= 35) stats.computeIfPresent("18-35 (Pemuda)", (k, v) -> v + 1);
+            else if (age <= 59) stats.computeIfPresent("36-59 (Dewasa)", (k, v) -> v + 1);
+            else stats.computeIfPresent("60+ (Lansia)", (k, v) -> v + 1);
+        }
         return stats;
     }
 
+
     private List<Map<String, Object>> getJemaatDetails(ReportRequestDto request) {
-        List<Map<String, Object>> details = new ArrayList<>();
-        // TODO: Add detailed jemaat data if needed
-        return details;
+        return activePeople().stream()
+                .map(person -> {
+                    Map<String, Object> details = new LinkedHashMap<>();
+                    details.put("id", person.getId());
+                    details.put("nama", person.getName());
+                    details.put("jenisKelamin", person.getJenisKelamin());
+                    details.put("tanggalLahir", person.getTanggalLahir());
+                    details.put("baptis", person.getBaptis());
+                    details.put("sidi", person.getSidi());
+                    details.put("sektor", person.getSektor());
+                    return details;
+                }).toList();
     }
 
     private double calculateTotalByType(LocalDateTime start, LocalDateTime end, String type) {
@@ -304,22 +345,61 @@ public class ReportService {
     }
 
     private Map<RoleType, Long> getRoleDistribution() {
-        Map<RoleType, Long> stats = new HashMap<>();
-        // TODO: Query from OrganizationRepository
-        return stats;
+        return organizationRepository.findByIsActiveTrue().stream()
+                .flatMap(org -> safeMembers(org).stream())
+                .filter(member -> member.getRole() != null)
+                .collect(Collectors.groupingBy(OrganizationMember::getRole, LinkedHashMap::new,
+                        Collectors.counting()));
     }
 
     private Map<String, Long> getSeksiDistribution() {
-        Map<String, Long> stats = new HashMap<>();
-        // TODO: Query from OrganizationRepository
-        return stats;
+        return organizationRepository.findByIsActiveTrue().stream()
+                .flatMap(org -> safeMembers(org).stream())
+                .collect(Collectors.groupingBy(member -> normalizeBlank(member.getUnit(), "Tanpa Unit"), LinkedHashMap::new, Collectors.counting()));
     }
 
-    private List<Map<String, Object>> getOrganisasiDetails(ReportRequestDto request) {
+    private List<Map<String, Object>> getOrganizationDetails(ReportRequestDto request) {
         List<Map<String, Object>> details = new ArrayList<>();
-        // TODO: Add detailed organization data
+
+        for (Organization org : organizationRepository.findByIsActiveTrue()) {
+            for (OrganizationMember member : safeMembers(org)) {
+                Map<String, Object> detail = new LinkedHashMap<>();
+                detail.put("organizationId", org.getId());
+                detail.put("periode", org.getPeriode());
+                detail.put("personId", member.getPersonId());
+                detail.put("role", member.getRole());
+                detail.put("namaJabatan", member.getNamaJabatan());
+                detail.put("unit", member.getUnit());
+                details.add(detail);
+            }
+        }
         return details;
     }
+
+    private List<Map<String, Object>> getKeuanganDetailsBySection(ReportRequestDto request,
+                                                                  LocalDateTime start,
+                                                                  LocalDateTime end) {
+        return getKeuanganDetails(request, start, end).stream()
+                .filter(detail -> request.getFilterBy() == null || request.getFilterBy().isBlank()
+                        || request.getFilterBy().equalsIgnoreCase(String.valueOf(detail.get("category"))))
+                .toList();
+    }
+    private List<Person> activePeople() {
+        return personRepository.findByActiveTrue();
+    }
+    private List<OrganizationMember> safeMembers(Organization organization) {
+        return organization.getMembers() == null ? Collections.emptyList() : organization.getMembers();
+    }
+    private LocalDateTime startOfDay(LocalDate date) {
+        return date.atStartOfDay();
+    }
+    private LocalDateTime endOfDay(LocalDate date) {
+        return date.atTime(LocalTime.MAX);
+    }
+    private String normalizeBlank(String value, String defaultValue) {
+        return value == null || value.isBlank() ? defaultValue : value;
+    }
+
 
     private void validateDateRange(LocalDate startDate, LocalDate endDate) {
         if (startDate == null || endDate == null) {

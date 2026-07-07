@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+
 
 @Data
 @NoArgsConstructor
@@ -19,6 +19,22 @@ public class StatisticReportDto {
     private Map<String, Object> summaryData;
     private List<Map<String, Object>> detailData;
     private GeneratedAt generatedAt;
+
+    public void setSummary(Map<String, Object> summary) {
+        this.summaryData = summary;
+    }
+
+    public Map<String, Object> getSummary() {
+        return summaryData;
+    }
+
+    public void setDetails(List<Map<String, Object>> details) {
+        this.detailData = details;
+    }
+
+    public List<Map<String, Object>> getDetails() {
+        return detailData;
+    }
 
     @Data
     @NoArgsConstructor

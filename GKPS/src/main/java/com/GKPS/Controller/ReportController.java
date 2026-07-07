@@ -19,7 +19,7 @@ public class ReportController {
 
 
     @PostMapping("/generate")
-    @PreAuthorize("hasAnyRole('MAJELIS, 'PENDETA, 'SEKRETARIS', 'BENDAHARA', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('MAJELIS', 'PENDETA', 'SEKRETARIS', 'BENDAHARA', 'ADMIN')")
     public ResponseEntity<StatisticReportDto> generateReport(@RequestBody ReportRequestDto reportRequestDto) {
         StatisticReportDto report = reportService.generateReport(reportRequestDto);
         return ResponseEntity.ok(report);
@@ -39,7 +39,7 @@ public class ReportController {
     @PreAuthorize("hasAnyRole('MAJELIS', 'SEKRETARIS', 'BENDAHARA_SEKSI', 'ADMIN')")
     public ResponseEntity<StatisticReportDto> generateFinancialReport(@RequestBody ReportRequestDto reportRequestDto) {
         reportRequestDto.setReportType("keuangan");
-        StatisticReportDto report = reportService.generateFinancialReport(reportRequestDto);
+        StatisticReportDto report = reportService.generateReport(reportRequestDto);
         return ResponseEntity.ok(report);
     }
 
@@ -48,7 +48,7 @@ public class ReportController {
     @PreAuthorize("hasAnyRole('MAJELIS', 'SEKRETARIS', 'BENDAHARA_SEKSI', 'ADMIN')")
     public ResponseEntity<StatisticReportDto> generateFinancialReportBySection(@RequestBody ReportRequestDto reportRequestDto) {
         reportRequestDto.setReportType("keuangan_seksi");
-        StatisticReportDto report = reportService.generateFinancialReportBySection(reportRequestDto);
+        StatisticReportDto report = reportService.generateReport(reportRequestDto);
         return ResponseEntity.ok(report);
     }
 
