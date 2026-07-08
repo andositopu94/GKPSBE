@@ -18,7 +18,6 @@ public class StatisticReportDto {
     private LocalDate endDate;
     private Map<String, Object> summaryData;
     private List<Map<String, Object>> detailData;
-    private GeneratedAt generatedAt;
 
     public void setSummary(Map<String, Object> summary) {
         this.summaryData = summary;
@@ -35,6 +34,8 @@ public class StatisticReportDto {
     public List<Map<String, Object>> getDetails() {
         return detailData;
     }
+
+    private GeneratedAt generatedAt;
 
     @Data
     @NoArgsConstructor

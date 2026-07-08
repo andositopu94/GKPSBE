@@ -29,13 +29,13 @@ public class TataIbadahController {
     }
 
     @PostMapping
-    @PreAuthorize("hashAnyRole('PENDETA', 'ADMIN', 'MAJELIS', 'SINTUA')")
+    @PreAuthorize("hasAnyRole('PENDETA', 'ADMIN', 'MAJELIS', 'SINTUA', 'SEKRETARIS')")
     public ResponseEntity<TataIbadah> create(@RequestBody TataIbadah tataIbadah){
         return ResponseEntity.ok(tataIbadahService.createTataIbadah(tataIbadah));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hashAnyRole('PENDETA', 'ADMIN', 'MAJELIS', 'SINTUA')")
+    @PreAuthorize("hasAnyRole('PENDETA', 'ADMIN', 'MAJELIS', 'SINTUA', 'SEKRETARIS')")
     public ResponseEntity<TataIbadah> update(@PathVariable String id, @RequestBody TataIbadah tataIbadah){
         return tataIbadahService.updateTataIbadah(id, tataIbadah)
                 .map(updatedTataIbadah -> ResponseEntity.ok(updatedTataIbadah))
@@ -43,7 +43,7 @@ public class TataIbadahController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hashAnyRole('PENDETA', 'ADMIN', 'MAJELIS', 'SINTUA')")
+    @PreAuthorize("hasAnyRole('PENDETA', 'ADMIN', 'MAJELIS', 'SINTUA', 'SEKRETARIS')")
     public ResponseEntity<Void> delete(@PathVariable String id){
         return tataIbadahService.deleteTataIbadah(id)
                 ? ResponseEntity.noContent().build()

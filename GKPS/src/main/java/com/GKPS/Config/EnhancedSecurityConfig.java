@@ -55,13 +55,18 @@ public class EnhancedSecurityConfig {
 
                         // GET requests allowed for public information
                         .requestMatchers(HttpMethod.GET, "/api/ibadah/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/jadwal-ibadah/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/tataibadah/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/ewarta/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/renungan/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/majalah/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/public/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/dashboard").permitAll()
 
                         // Protected endpoints - requires authentication
                         .requestMatchers("/api/keuangan/**").authenticated()
                         .requestMatchers("/api/admin/**").authenticated()
+                        .requestMatchers("/api/report/**").authenticated()
                         .requestMatchers("/api/reports/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/**").authenticated()

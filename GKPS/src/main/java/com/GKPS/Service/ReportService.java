@@ -207,22 +207,11 @@ public class ReportService {
     // ==================== HELPER METHODS ====================
 
     private Map<String, Long> getGenderStatistics() {
-        // Implementasi sesuai dengan field di Person model
-//        Map<String, Long> stats = new HashMap<>();
-//        stats.put("Laki-laki", 0L);
-//        stats.put("Perempuan", 0L);
-        // TODO: Query actual data from repository
-//        return stats;
         return activePeople().stream()
                 .collect(Collectors.groupingBy(p -> normalizeBlank(p.getJenisKelamin(), "Tidak Diketahui"), LinkedHashMap::new, Collectors.counting()));
     }
 
     private Map<String, Long> getBaptismStatistics() {
-//        Map<String, Long> stats = new HashMap<>();
-//        stats.put("Sudah Baptis", 0L);
-//        stats.put("Belum Baptis", 0L);
-//        stats.put("Sidi", 0L);
-        // TODO: Query actual data from repository
         Map<String, Long> stats = new LinkedHashMap<>();
         stats.put("Sudah Baptis", activePeople().stream().filter(p -> Boolean.TRUE.equals(p.getBaptis())).count());
         stats.put("Belum Baptis", activePeople().stream().filter(p -> !Boolean.TRUE.equals(p.getBaptis())).count());
