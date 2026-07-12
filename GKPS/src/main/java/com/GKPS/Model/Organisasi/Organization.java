@@ -10,10 +10,11 @@ import java.util.List;
 public class Organization {
     @Id
     private String id;
+    private String name;
     private String periode;
     private LocalDate startDate;
     private LocalDate endDate;
-
+    private List<String> anggotaIds;
     private List<OrganizationMember> members;
     private Boolean isActive;
 
@@ -23,6 +24,14 @@ public class Organization {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPeriode() {
@@ -49,6 +58,14 @@ public class Organization {
         this.endDate = endDate;
     }
 
+    public List<String> getAnggotaIds() {
+        return anggotaIds;
+    }
+
+    public void setAnggotaIds(List<String> anggotaIds) {
+        this.anggotaIds = anggotaIds;
+    }
+
     public List<OrganizationMember> getMembers() {
         return members;
     }
@@ -57,11 +74,11 @@ public class Organization {
         this.members = members;
     }
 
-    public Boolean getActive() {
+    public Boolean getIsActiveActive() {
         return isActive;
     }
 
-    public void setActive(Boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 }

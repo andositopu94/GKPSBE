@@ -4,6 +4,9 @@ import com.GKPS.DTO.Request.PersonRequestDTO;
 import com.GKPS.DTO.Response.PersonResponseDTO;
 import com.GKPS.Service.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +23,8 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<PersonResponseDTO> findAll() {
-        return personService.findAll();
+    public Page<PersonResponseDTO> findAll(@PageableDefault(size =20, page = 0)Pageable pageable) {
+        return personService.findAll(pageable);
     }
 
     @GetMapping("/{id}")

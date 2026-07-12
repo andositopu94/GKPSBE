@@ -5,6 +5,8 @@ import com.GKPS.DTO.Response.PersonResponseDTO;
 import com.GKPS.Model.Organisasi.Person;
 import com.GKPS.Repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,8 +37,8 @@ public class PersonService {
         return toResponse(personRepository.save(person));
     }
 
-    public List<PersonResponseDTO> findAll() {
-        return personRepository.findByActiveTrue().stream().map(this::toResponse).toList();
+    public Page<PersonResponseDTO> findAll(Pageable pageable) {
+        return personRepository.findByActiveTrue(pageable).map(this::toResponse);
     }
 
     public PersonResponseDTO findById(String id) {

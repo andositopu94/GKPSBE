@@ -1,6 +1,8 @@
 package com.GKPS.Repository;
 
 import com.GKPS.Model.Organisasi.Person;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +17,5 @@ public interface PersonRepository extends MongoRepository<Person, String> {
     List<Person> findBySektor(String sektor);
     List<Person> findByActiveTrue();
     Boolean existsByNik(String nik);
+    Page<Person> findByActiveTrue(Pageable pageable);
 }

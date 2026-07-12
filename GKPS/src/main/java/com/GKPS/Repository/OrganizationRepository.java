@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface OrganizationRepository extends MongoRepository<Organization, String> {
     List<Organization> findByIsActiveTrue();
+    Long countByIsActiveTrue();
     List<Organization> findByEndDateAfter(LocalDate date);
 }
