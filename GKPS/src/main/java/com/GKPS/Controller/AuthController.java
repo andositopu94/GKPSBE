@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 public class AuthController {
     private final static Logger logger = LoggerFactory.getLogger(AuthController.class);

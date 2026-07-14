@@ -1,8 +1,13 @@
 package com.GKPS.Controller;
 
+import com.GKPS.DTO.Response.PageResponse;
 import com.GKPS.Model.Organisasi.Organization;
 import com.GKPS.Service.OrganizationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +16,17 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping({"/api/organizations", "/api/admin/jemaat/organizations"})
+@RequestMapping({"/api/v1/organizations", "/api/admin/jemaat/organizations"})
 public class OrganizationController {
     private final OrganizationService organizationService;
 
     @GetMapping
-    public ResponseEntity<List<Organization>> getAll(@RequestParam(required = false) Boolean active) {
+    public ResponseEntity<PageResponse<Organization>> getAll(@RequestParam(required = false) Boolean active, @PageableDefault(page = 0, size=20, sort = "name", direction = Sort.Direction.ASC)Pageable pageable) {
         if (Boolean.TRUE.equals(active)) {
-            return ResponseEntity.ok(organizationService.getActiveOrganizations());
+             ResponseEntity.ok(organizationService.getActiveOrganizations());
         }
-        return ResponseEntity.ok(organizationService.getAllOrganizations());
+        Page<Organization> organizationPage = organizationService.getAllOrganizations(pageable);
+        return ResponseEntity.ok(PageResponse.fromPage(organizationPage));
     }
 
     @GetMapping("{id}")

@@ -7,6 +7,8 @@ import com.GKPS.Model.Organisasi.Person;
 import com.GKPS.Repository.FamilyRepository;
 import com.GKPS.Repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +33,9 @@ public class FamilyService {
         return familyRepository.save(family);
     }
 
-    public List<FamilyResponseDto> findAll(){
-        return familyRepository.findByActiveTrue().stream().map(this::toResponse).collect(Collectors.toList());
+    public Page<FamilyResponseDto> findAll(Pageable pageable){
+        return familyRepository.findAll(pageable).map(this::toResponse);
+//                findByActiveTrue().stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     public FamilyResponseDto findById(String id){

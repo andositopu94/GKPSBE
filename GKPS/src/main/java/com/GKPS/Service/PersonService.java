@@ -38,7 +38,7 @@ public class PersonService {
     }
 
     public Page<PersonResponseDTO> findAll(Pageable pageable) {
-        return personRepository.findByActiveTrue(pageable).map(this::toResponse);
+        return personRepository.findAll(pageable).map(this::toResponse);
     }
 
     public PersonResponseDTO findById(String id) {

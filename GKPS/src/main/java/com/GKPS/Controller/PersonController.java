@@ -1,19 +1,22 @@
 package com.GKPS.Controller;
 
 import com.GKPS.DTO.Request.PersonRequestDTO;
+import com.GKPS.DTO.Response.PageResponse;
 import com.GKPS.DTO.Response.PersonResponseDTO;
 import com.GKPS.Service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/person")
+@RequestMapping("/api/v1/person")
 public class PersonController {
     private final PersonService personService;
 
@@ -23,8 +26,9 @@ public class PersonController {
     }
 
     @GetMapping
-    public Page<PersonResponseDTO> findAll(@PageableDefault(size =20, page = 0)Pageable pageable) {
-        return personService.findAll(pageable);
+    public ResponseEntity<PageResponse<PersonResponseDTO>> findAll(@PageableDefault(size =20, page = 0, sort = "name", direction = Sort.Direction.ASC)Pageable pageable) {
+        Page<PersonResponseDTO> personPage = personService.findAll(pageable);
+        return ResponseEntity.ok(PageResponse.fromPage(personPage));
     }
 
     @GetMapping("/{id}")
