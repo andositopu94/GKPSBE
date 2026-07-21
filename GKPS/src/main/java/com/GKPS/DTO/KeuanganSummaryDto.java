@@ -7,14 +7,16 @@ public class KeuanganSummaryDto {
     private LocalDate tanggal;
     private List<ItemKeuanganDto> items;
     private Double totalPemasukan;
+    private Double totalPengeluaran;
 
     public KeuanganSummaryDto() {
     }
 
-    public KeuanganSummaryDto(LocalDate tanggal, List<ItemKeuanganDto> items, Double totalPemasukan) {
+    public KeuanganSummaryDto(LocalDate tanggal, List<ItemKeuanganDto> items, Double totalPemasukan,  Double totalPengeluaran) {
         this.tanggal = tanggal;
         this.items = items;
         this.totalPemasukan = totalPemasukan;
+        this.totalPengeluaran = totalPengeluaran;
     }
 
     public LocalDate getTanggal() {
@@ -39,5 +41,12 @@ public class KeuanganSummaryDto {
 
     public void setTotalPemasukan(Double totalPemasukan) {
         this.totalPemasukan = totalPemasukan;
+    }
+
+    public Double getTotalPengeluaran() {
+        return totalPengeluaran;
+    }
+    public void setTotalPengeluaran(Double totalPengeluaran) {
+        this.totalPengeluaran = totalPengeluaran;
     }
 }

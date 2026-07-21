@@ -6,7 +6,7 @@ import com.GKPS.Model.Enum.TransactionType;
 import com.GKPS.Model.Keuangan.Account;
 import com.GKPS.Model.Keuangan.Transaction;
 import com.GKPS.Repository.AccountRepository;
-import com.GKPS.Repository.TransactionRepositroy;
+import com.GKPS.Repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class KeuanganService {
     private AccountRepository accountRepository;
 
     @Autowired
-    private TransactionRepositroy transactionRepositroy;
+    private TransactionRepository transactionRepositroy;
 
     private static final List<String> UANG_MASUK_CATEGORIES = Arrays.asList(
             "Persembahan Ibadah Utama", "Persembahan Ibadah Sektor", "Persembahan Ibadah Seksi Bapa",

@@ -5,6 +5,8 @@ import com.GKPS.Model.Enum.TransactionCategory;
 import com.GKPS.Model.Enum.TransactionType;
 import com.GKPS.Model.Keuangan.Approval;
 import com.GKPS.Model.Keuangan.Transaction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,10 +14,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface TransactionRepositroy extends MongoRepository<Transaction, String> {
+public interface TransactionRepository extends MongoRepository<Transaction, String> {
     List<Transaction> findByAccountIdAndIsDeletedFalse(String accountId);
 
     List<Transaction> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
+    Page<Transaction> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 
     List<Transaction> findByApprovalStatusStatus(ApprovalStatus status);
     List<Transaction>findByApprovalStatus(Approval status);
@@ -25,5 +28,6 @@ public interface TransactionRepositroy extends MongoRepository<Transaction, Stri
     List<Transaction>findByAccountId(String accountId);
     List<Transaction>findByKategori(TransactionCategory kategori);
     List<Transaction> findByTypeAndCreatedAtBetween(TransactionType type, LocalDateTime startDate, LocalDateTime endDate);
+    Page<Transaction> findByTypeAndCreatedAtBetween(TransactionType type, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 }
 

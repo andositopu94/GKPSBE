@@ -6,6 +6,10 @@ import com.GKPS.Model.Keuangan.Account;
 import com.GKPS.Model.Keuangan.Transaction;
 import com.GKPS.Service.KeuanganService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,7 +57,7 @@ public class KeuanganController {
 
         //jumlah total
         double totalMasuk = uangMasuk.stream().mapToDouble(KeuanganSummaryDto::getTotalPemasukan).sum();
-        double totalKeluar = uangKeluar.stream().mapToDouble(KeuanganSummaryDto::getTotalPemasukan).sum();
+        double totalKeluar = uangKeluar.stream().mapToDouble(KeuanganSummaryDto::getTotalPengeluaran).sum();
 
         response.put("totalMasuk", totalMasuk);
         response.put("totalKeluar", totalKeluar);
@@ -94,18 +98,44 @@ public class KeuanganController {
     }
 
     @GetMapping("transactions")
-    public ResponseEntity<List<Transaction>> getTransactions(@RequestParam(required = false) String accountId,
+    public ResponseEntity<Map<String, Object>> getTransactions(@RequestParam(required = false) String accountId,
                                                              @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                                             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+                                                             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+                                                             @RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "20") int size) {
+        Map<String, Object> response = new HashMap<>();
+
         if (accountId != null && !accountId.isBlank()) {
-            return ResponseEntity.ok(keuanganService.getTransactionsByAccountId(accountId));
+            List<Transaction> transactions = keuanganService.getTransactionsByAccountId(accountId);
+            response.put("transactions", transactions);
+            response.put("totalElements", transactions.size());
+            response.put("totalPages", 1);
+            response.put("currentPage", 0);
+            return ResponseEntity.ok(response);
         }
+
         if (startDate != null || endDate != null) {
-            LocalDateTime start = startDate.atStartOfDay();
-            LocalDateTime end = endDate.atTime(LocalTime.MAX);
-            return ResponseEntity.ok(keuanganService.getTransactionsByDateRange(start, end));
+            LocalDateTime start = startDate != null ? startDate.atStartOfDay() : LocalDateTime.MIN;
+            LocalDateTime end = endDate != null ? endDate.atTime(LocalTime.MAX) : LocalDateTime.MAX;
+
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+            Page<Transaction> transactionsPage = keuanganService.getTransactionsByDateRange(start, end, pageable);
+
+            response.put("content", transactionsPage.getContent());
+            response.put("totalElements", transactionsPage.getTotalElements());
+            response.put("totalPages", transactionsPage.getTotalPages());
+            response.put("currentPage", transactionsPage.getNumber());
+            response.put("size", transactionsPage.getSize());
+            return ResponseEntity.ok(response);
         }
-        return ResponseEntity.ok(keuanganService.getAllTransactions());
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Page<Transaction> transactionsPage = keuanganService.getAllTransactions(pageable);
+        response.put("content", transactionsPage.getContent());
+        response.put("totalElements", transactionsPage.getTotalElements());
+        response.put("totalPages", transactionsPage.getTotalPages());
+        response.put("currentPage", transactionsPage.getNumber());
+        response.put("size", transactionsPage.getSize());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/transactions/{id}")

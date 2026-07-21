@@ -27,10 +27,10 @@ public class ReportService {
     private final PersonRepository personRepository;
     private final FamilyRepository familyRepository;
     private final OrganizationRepository organizationRepository;
-    private final TransactionRepositroy transactionRepositroy;
+    private final TransactionRepository transactionRepositroy;
     private final AccountRepository accountRepository;
 
-    public ReportService(PersonRepository personRepository, FamilyRepository familyRepository, OrganizationRepository organizationRepository, TransactionRepositroy transactionRepositroy, AccountRepository accountRepository) {
+    public ReportService(PersonRepository personRepository, FamilyRepository familyRepository, OrganizationRepository organizationRepository, TransactionRepository transactionRepositroy, AccountRepository accountRepository) {
         this.personRepository = personRepository;
         this.familyRepository = familyRepository;
         this.organizationRepository = organizationRepository;
