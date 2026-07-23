@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Document(collection = "transactions")
@@ -17,7 +18,7 @@ public class Transaction extends BaseEntity{
     private TransactionType type;
 
     private TransactionCategory kategori; //donasi, operasional, dll
-    private Double amount;
+    private BigDecimal amount;
 
     private String accountId; //uangMasuk dan uangKeluar
     private String fromAccountId; //hanya untuk transfer
@@ -56,11 +57,11 @@ public class Transaction extends BaseEntity{
         this.type = type;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -94,5 +95,25 @@ public class Transaction extends BaseEntity{
 
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
+    }
+
+    public String getReferenceNo() {
+        return referenceNo;
+    }
+
+    public void setReferenceNo(String referenceNo) {
+        this.referenceNo = referenceNo;
+    }
+    public Approval getApprovalStatus() {
+        return approvalStatus;
+    }
+    public void setApprovalStatus(Approval approvalStatus) {
+        this.approvalStatus = approvalStatus;
+    }
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 }

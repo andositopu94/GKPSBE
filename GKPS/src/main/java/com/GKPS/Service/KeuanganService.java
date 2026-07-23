@@ -8,6 +8,8 @@ import com.GKPS.Model.Keuangan.Transaction;
 import com.GKPS.Repository.AccountRepository;
 import com.GKPS.Repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,7 +24,7 @@ public class KeuanganService {
     private AccountRepository accountRepository;
 
     @Autowired
-    private TransactionRepository transactionRepositroy;
+    private TransactionRepository transactionRepository;
 
     private static final List<String> UANG_MASUK_CATEGORIES = Arrays.asList(
             "Persembahan Ibadah Utama", "Persembahan Ibadah Sektor", "Persembahan Ibadah Seksi Bapa",
@@ -58,33 +60,33 @@ public class KeuanganService {
         accountRepository.deleteById(id);
     }
 
-    public List<Transaction> getAllTransactions() {
-        return transactionRepositroy.findAll();
+    public Page<Transaction> getAllTransactions(Pageable pageable) {
+        return transactionRepository.findAll(pageable);
     }
 
     public Optional<Transaction> getTransactionById(String id) {
-        return transactionRepositroy.findById(id);
+        return transactionRepository.findById(id);
     }
 
     public List<Transaction> getTransactionsByAccountId(String accountId) {
-        return transactionRepositroy.findByAccountIdAndIsDeletedFalse(accountId);
+        return transactionRepository.findByAccountIdAndIsDeletedFalse(accountId);
     }
 
-    public List<Transaction> getTransactionsByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
-        return transactionRepositroy.findByCreatedAtBetween(startDate, endDate);
+    public Page<Transaction> getTransactionsByDateRange(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
+        return transactionRepository.findByCreatedAtBetween(startDate, endDate, pageable);
     }
 
     public Transaction createTransaction(Transaction transaction) {
-        return transactionRepositroy.save(transaction);
+        return transactionRepository.save(transaction);
     }
 
     public Transaction updateTransaction(String id, Transaction transaction) {
         transaction.setId(id);
-        return transactionRepositroy.save(transaction);
+        return transactionRepository.save(transaction);
     }
 
     public void deleteTransaction(String id) {
-        transactionRepositroy.deleteById(id);
+        transactionRepository.deleteById(id);
     }
 
     //get summary uang masuk
@@ -92,7 +94,7 @@ public class KeuanganService {
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
 
-        List<Transaction> transactions = transactionRepositroy.findByTypeAndCreatedAtBetween(TransactionType.Masuk, startDateTime, endDateTime);
+        List<Transaction> transactions = transactionRepository.findByTypeAndCreatedAtBetween(TransactionType.Masuk, startDateTime, endDateTime);
 
         return groupTransactionsByDate(transactions, UANG_MASUK_CATEGORIES);
     }
@@ -102,7 +104,7 @@ public class KeuanganService {
         LocalDateTime startDateTime = starDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
 
-        List<Transaction> transactions = transactionRepositroy.findByTypeAndCreatedAtBetween(TransactionType.Keluar, startDateTime, endDateTime);
+        List<Transaction> transactions = transactionRepository.findByTypeAndCreatedAtBetween(TransactionType.Keluar, startDateTime, endDateTime);
 
         return groupTransactionsByDate(transactions, UANG_KELUAR_CATEGORIES);
     }
@@ -143,7 +145,7 @@ public class KeuanganService {
                 total += catEntry.getValue();
             }
 
-            summaries.add(new KeuanganSummaryDto(date, items, total));
+            summaries.add(new KeuanganSummaryDto(date, items, total,0.0));
         }
 
         //sort by desc

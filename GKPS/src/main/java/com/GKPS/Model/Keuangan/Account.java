@@ -3,12 +3,14 @@ package com.GKPS.Model.Keuangan;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
+
 @Document(collection = "account")
 public class Account extends BaseEntity{
     @Id
     private String id;
     private String nama; //kas Gereja, seksi-seksi, dll
-    private Double saldo;
+    private BigDecimal saldo;
 
     public Account() {
     }
@@ -29,11 +31,11 @@ public class Account extends BaseEntity{
         this.nama = nama;
     }
 
-    public Double getSaldo() {
+    public BigDecimal getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(Double saldo) {
+    public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
     }
 }
